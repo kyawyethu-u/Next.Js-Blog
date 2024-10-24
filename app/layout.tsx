@@ -32,14 +32,16 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <nav className="underline space-x-4">
-        <Link href={"/"}>Home</Link>
-        <Link href={"/about"}>About</Link>
-        <Link href={"/setting"}>Setting</Link>
+        <nav className="flex items-center justify-between p-2 bg-blue-600 text-white">
+        <Link href="/" className="text-3xl font-bold text-white  ">Bloggy</Link>
+        <div className="space-x-4 underline">
+        <Link href={"/create"} className="p-2 text-blue-600 bg-white rounded-md font-medium text-sm">Create new blog</Link>
+        
+        </div>
         </nav>
-        {children}
-        {isAdmin && dashboard}
-
+        <div className="px-2">
+             {children}
+        </div>
       </body>
     </html>
   );

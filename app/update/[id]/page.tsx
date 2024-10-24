@@ -1,5 +1,5 @@
 import CustomButton from '@/app/components/custom-buttom'
-import { updateData } from '@/server/action'
+import { getPost, updatePost } from '@/server/action'
 import React from 'react'
 
 type EditTodoProps = {
@@ -8,15 +8,30 @@ type EditTodoProps = {
     }
 }
 
-const EditTodo = ({params}: EditTodoProps) => {
+const EditTodo =async ({params}: EditTodoProps) => {
+  const {success} = await getPost(Number(params.id))
+  
   return <main>
-    <h2>Update todo</h2>
-    <form action={updateData}>
-        <input type="text" name="id" value={params.id} hidden readOnly/>
-        <input type="text" name="title" required className='bg-transparent border border-white'/>
-        <CustomButton label="update"/>
+     <h2 className='title-text'>Update post</h2>
+    <form action={updatePost}>
+      <div className='space-y-4 mt-4'>
+      <input type="text" name="id" value={params.id} hidden readOnly/>
+        <input type="text" name="title"placeholder='title...'
+        defaultValue={success?.title}
+        className="bg-transparent border-2 w-full border-blue-600 rounded-md focus:outline-none p-2 block" required/>
+      <textarea
+        name="description"
+        placeholder='description...'
+        className="bg-transparent border-2 w-full border-blue-600 rounded-md focus:outline-none p-2 block" required
+        rows={5}
+        defaultValue={success?.description}
+        />
+      </div>
+         <div className='flex justify-end'>
+         <CustomButton label="Update post"/>
+         </div>
     </form>
-  </main>
+    </main>
 }
 
 export default EditTodo
